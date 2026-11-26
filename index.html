@@ -1,55 +1,48 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Amazon India Sales Analytics</title>
+<title>Amazon India Sales Analytics | Corrected Dashboard</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-:root{--ink:#17232b;--muted:#687780;--line:#e4e9ec;--bg:#f4f7f6;--card:#fff;--green:#145b49;--gold:#d59a35}
+:root{--ink:#17242c;--muted:#65747c;--line:#e2e9e7;--bg:#f3f7f5;--card:#fff;--green:#145b49;--gold:#d69b39}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,Segoe UI,Arial,sans-serif}
-header{background:#102f2a;color:#fff;padding:34px max(20px,calc((100vw - 1180px)/2))}
-header h1{font-size:clamp(24px,4vw,36px);margin:0 0 5px}header p{margin:0;color:#d0e0da}
-main{max-width:1180px;margin:25px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px}
+header{background:linear-gradient(120deg,#103b32,#17634e);color:#fff;padding:34px max(20px,calc((100vw - 1180px)/2))}
+header h1{font-size:clamp(24px,4vw,36px);margin:0 0 5px}header p{margin:0;color:#d5e5df}
+main{max-width:1180px;margin:25px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px}
 .card,.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 4px 18px #163a3010}
-.k{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.v{font-size:25px;font-weight:750;margin-top:4px;letter-spacing:-.02em}
-.panel{margin-top:15px}.panel h2{font-size:17px;margin:0 0 8px}.chart{width:100%;height:370px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}
-.note{background:#fff8e8;border:1px solid #f0dfb8;color:#60491d;padding:15px 17px;border-radius:12px;margin:17px 0}
-small,footer{color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
-@media(max-width:760px){.two{grid-template-columns:1fr}.chart{height:320px}.v{font-size:22px}}
+.k{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.v{font-size:clamp(20px,3vw,27px);font-weight:750;margin-top:5px;letter-spacing:-.02em}
+.panel{margin-top:15px}.panel h2{font-size:17px;margin:0 0 8px}.chart{width:100%;height:360px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.note{margin:16px 0;padding:14px 16px;background:#fff8e9;border:1px solid #f0dfb8;border-radius:12px;color:#624c22}
+footer{color:var(--muted);font-size:12px;padding:25px 0 35px}a{color:var(--green)}
+@media(max-width:520px){.chart{height:300px}.two{grid-template-columns:1fr}}
 </style></head><body>
-<header><h1>Amazon India Sales Analytics</h1><p>Corrected date parsing · Reconciled aggregates · Real source data</p></header>
+<header><h1>Amazon India Sales Analytics</h1><p>Corrected exploratory analysis · March–June 2022 · Recorded sales, not profit</p></header>
 <main>
 <section class="grid">
-<div class="card"><div class="k">Recorded sales</div><div class="v">₹7.82 Cr</div><small>₹78,179,803.88</small></div>
-<div class="card"><div class="k">Distinct orders</div><div class="v">1,20,229</div><small>After duplicate-row removal</small></div>
-<div class="card"><div class="k">Average order value</div><div class="v">₹650.26</div><small>Mean recorded order total</small></div>
-<div class="card"><div class="k">Cancelled orders</div><div class="v">17,166</div><small>14.28% of distinct order IDs</small></div>
-<div class="card"><div class="k">B2C sales share</div><div class="v">99.25%</div><small>Recorded Amount basis</small></div>
-<div class="card"><div class="k">Amazon fulfilment</div><div class="v">69.18%</div><small>Recorded Amount basis</small></div>
+<div class="card"><div class="k">Recorded Sales</div><div class="v">₹78.18M</div><div class="k">₹78,179,803.88</div></div>
+<div class="card"><div class="k">Distinct Orders</div><div class="v">120,229</div></div>
+<div class="card"><div class="k">Average Order Value</div><div class="v">₹650.26</div><div class="k">Mean order-level recorded Amount</div></div>
+<div class="card"><div class="k">Cancelled Orders</div><div class="v">17,166</div><div class="k">14.28% of distinct orders</div></div>
+<div class="card"><div class="k">B2C Sales Share</div><div class="v">99.25%</div></div>
+<div class="card"><div class="k">Amazon Fulfilment Share</div><div class="v">69.18%</div></div>
 </section>
-<div class="note"><b>Data quality and interpretation.</b> The original file has 128,976 rows. After removing 959 exact duplicate rows, 128,017 remain. Both MM-DD-YY and MM-DD-YYYY date formats are parsed; no invalid dates remain. However, 7,563 Amount values (5.91%) are missing and were not imputed. March 2022 contains only 31 March data, so April month-on-month change is not a like-for-like full-month comparison. Recorded Amount is not profit.</div>
-<section class="panel"><h2>Recorded sales by month</h2><div id="monthly" class="chart"></div><small>March is a partial month (158 distinct orders).</small></section>
-<div class="two">
-<section class="panel"><h2>Sales by category</h2><div id="category" class="chart"></div></section>
-<section class="panel"><h2>Top 10 states by recorded sales</h2><div id="state" class="chart"></div></section>
-</div>
-<div class="two">
-<section class="panel"><h2>Distinct orders by status</h2><div id="status" class="chart"></div></section>
-<section class="panel"><h2>B2B vs B2C recorded sales</h2><div id="segment" class="chart"></div></section>
-</div>
-<section class="panel"><h2>Key category results</h2><table><thead><tr><th>Category</th><th>Recorded sales</th><th>Units</th><th>Distinct orders</th></tr></thead><tbody>
-<tr><td>T-shirt</td><td>₹39,074,570.36</td><td>45,129</td><td>47,782</td></tr>
-<tr><td>Shirt</td><td>₹21,127,971.29</td><td>44,671</td><td>46,499</td></tr>
-<tr><td>Blazzer</td><td>₹11,141,538.83</td><td>13,850</td><td>14,984</td></tr>
-<tr><td>Trousers</td><td>₹5,328,406.30</td><td>9,867</td><td>10,141</td></tr>
-</tbody></table></section>
-<footer><p>Source: Amazon Sale Report.csv supplied for this project. Data is presented as aggregated results; original order identifiers and postal codes are not exposed here. Aggregation parity was independently checked using SQLite against Pandas; direct DuckDB execution remains to be confirmed in the notebook runtime.</p></footer>
+<div class="note"><b>Data quality & interpretation:</b> 128,976 source rows; 959 exact duplicates removed; 128,017 cleaned rows; zero invalid dates after parsing both MM-DD-YY and MM-DD-YYYY; 7,563 Amount values missing (5.91%) and not imputed. March 2022 contains only 31 March data, so April month-on-month movement is not a like-for-like full-month growth rate.</div>
+<section class="two">
+<div class="panel"><h2>Monthly recorded sales</h2><div id="monthly" class="chart"></div></div>
+<div class="panel"><h2>Recorded sales by category</h2><div id="category" class="chart"></div></div>
+<div class="panel"><h2>Top 10 states by recorded sales</h2><div id="states" class="chart"></div></div>
+<div class="panel"><h2>B2B vs B2C recorded sales</h2><div id="segment" class="chart"></div></div>
+</section>
+<section class="panel"><h2>How to interpret this dashboard</h2>
+<p>Sales values are the sum of non-missing <code>Amount</code> values. AOV is the mean of per-order recorded Amount totals. Order counts use distinct Order IDs. Segment and fulfilment shares use recorded Amount.</p>
+<p>The source does not include reliable customer IDs, product/SKU IDs, costs, fees, margins, or delivery timestamps. Retention, customer lifetime value, product profitability, profit margin, and delivery duration are therefore not calculated.</p>
+<p><a href="reports/Amazon_Sales_Corrected_Analysis_Report_v3.pdf">Download the corrected analysis & validation report (PDF)</a> · <a href="notebooks/Amazon_Sales_Validated_Analysis.ipynb">Reproducible analysis notebook</a> · <a href="docs/METHODOLOGY.md">Methodology</a></p></section>
+<footer>Source: supplied Amazon Sale Report.csv · Public dashboard contains aggregate results only; original order IDs and postal codes are not published.</footer>
 </main>
 <script>
-const layout={margin:{l:65,r:20,t:20,b:75},paper_bgcolor:"white",plot_bgcolor:"white",font:{family:"Inter,Arial",color:"#26343a"},xaxis:{gridcolor:"#edf0f1"},yaxis:{gridcolor:"#edf0f1"},hoverlabel:{bgcolor:"#102f2a",font:{color:"white"}}};
-const money=v=>"₹"+Number(v).toLocaleString("en-IN",{maximumFractionDigits:0});
-Plotly.newPlot("monthly",[{type:"bar",x:["Mar 2022","Apr 2022","May 2022","Jun 2022"],y:[101683.85,28627458.79,26105818.34,23344842.90],marker:{color:"#287b64"},hovertemplate:"%{x}<br>"+ "Recorded sales: ₹%{y:,.2f}<extra></extra>"}],{...layout,yaxis:{...layout.yaxis,tickprefix:"₹",tickformat:"~s"},showlegend:false},{responsive:true,displayModeBar:false});
-Plotly.newPlot("category",[{type:"bar",x:["T-shirt","Shirt","Blazzer","Trousers","Perfume","Wallet","Socks","Shoes","Watch"],y:[39074570.36,21127971.29,11141538.83,5328406.30,787818.66,452367.18,147552.50,118968.76,610],marker:{color:"#287b64"},hovertemplate:"%{x}<br>₹%{y:,.2f}<extra></extra>"}],{...layout,xaxis:{...layout.xaxis,tickangle:-25},yaxis:{...layout.yaxis,tickprefix:"₹",tickformat:"~s"},showlegend:false},{responsive:true,displayModeBar:false});
-Plotly.newPlot("state",[{type:"bar",orientation:"h",y:["Maharashtra","Karnataka","Telangana","Uttar Pradesh","Tamil Nadu","Delhi","Kerala","West Bengal","Andhra Pradesh","Haryana"],x:[13261933.90,10421496.02,6880035.27,6798644.08,6477109.53,4216456.97,3798362.96,3487951.01,3198443.86,2874244.99],marker:{color:"#d59a35"},hovertemplate:"%{y}<br>₹%{x:,.2f}<extra></extra>"}],{...layout,margin:{l:125,r:20,t:20,b:45},xaxis:{...layout.xaxis,tickprefix:"₹",tickformat:"~s"},yaxis:{...layout.yaxis,autorange:"reversed"},showlegend:false},{responsive:true,displayModeBar:false});
-Plotly.newPlot("status",[{type:"bar",x:["Shipped","Delivered to buyer","Cancelled","Returned to seller","Picked up","Pending","Waiting for pickup","Returning to seller","Out for delivery","Rejected by buyer","Shipping","Lost in transit","Damaged"],y:[72742,26521,17166,1850,918,584,262,130,32,11,8,4,1],marker:{color:"#287b64"},hovertemplate:"%{x}<br>Distinct orders: %{y:,}<extra></extra>"}],{...layout,xaxis:{...layout.xaxis,tickangle:-35},yaxis:{...layout.yaxis,tickformat:",d"},showlegend:false},{responsive:true,displayModeBar:false});
-Plotly.newPlot("segment",[{type:"pie",hole:.56,labels:["B2C","B2B"],values:[77590831.09,588972.79],marker:{colors:["#287b64","#d59a35"]},textinfo:"label+percent",hovertemplate:"%{label}<br>₹%{value:,.2f}<extra></extra>"}],{...layout,showlegend:true,legend:{orientation:"h",y:-.1}},{responsive:true,displayModeBar:false});
+const base={paper_bgcolor:'white',plot_bgcolor:'white',font:{family:'Inter,Segoe UI,Arial',color:'#27343b'},margin:{l:55,r:20,t:15,b:55},autosize:true};
+Plotly.newPlot('monthly',[{type:'bar',x:['Mar 2022*','Apr 2022','May 2022','Jun 2022'],y:[101683.85,28627458.79,26105818.34,23344842.90],marker:{color:'#17634e'},hovertemplate:'%{x}<br>₹%{y:,.2f}<extra></extra>'}],{...base,yaxis:{tickprefix:'₹',tickformat:'~s',gridcolor:'#edf1ef'},xaxis:{gridcolor:'#fff'}},{responsive:true,displayModeBar:false});
+Plotly.newPlot('category',[{type:'bar',orientation:'h',x:[39074570.36,21127971.29,11141538.83,5328406.30,787818.66,452367.18,147552.50,118968.76,610],y:['T-shirt','Shirt','Blazzer','Trousers','Perfume','Wallet','Socks','Shoes','Watch'],marker:{color:'#d69b39'},hovertemplate:'%{y}<br>₹%{x:,.2f}<extra></extra>'}],{...base,margin:{l:85,r:15,t:10,b:40},xaxis:{tickprefix:'₹',tickformat:'~s',gridcolor:'#edf1ef'},yaxis:{autorange:'reversed'}},{responsive:true,displayModeBar:false});
+Plotly.newPlot('states',[{type:'bar',orientation:'h',x:[13261933.90,10421496.02,6880035.27,6798644.08,6477109.53,4216456.97,3798362.96,3487951.01,3198443.86,2874244.99],y:['Maharashtra','Karnataka','Telangana','Uttar Pradesh','Tamil Nadu','Delhi','Kerala','West Bengal','Andhra Pradesh','Haryana'],marker:{color:'#397a9b'},hovertemplate:'%{y}<br>₹%{x:,.2f}<extra></extra>'}],{...base,margin:{l:115,r:15,t:10,b:40},xaxis:{tickprefix:'₹',tickformat:'~s',gridcolor:'#edf1ef'},yaxis:{autorange:'reversed'}},{responsive:true,displayModeBar:false});
+Plotly.newPlot('segment',[{type:'pie',hole:.55,labels:['B2C','B2B'],values:[77590831.09,588972.79],marker:{colors:['#17634e','#d69b39']},textinfo:'label+percent',hovertemplate:'%{label}<br>₹%{value:,.2f}<br>%{percent}<extra></extra>'}],{...base,showlegend:true,margin:{l:20,r:20,t:10,b:20}},{responsive:true,displayModeBar:false});
 </script></body></html>
