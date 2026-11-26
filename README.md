@@ -1,13 +1,14 @@
 # Amazon India Sales Analytics
 
-A source-backed analytics project using the supplied Amazon India Sale Report export. The project includes a corrected cleaning workflow, Pandas EDA, DuckDB SQL reconciliation code, aggregated outputs, a corrected interactive dashboard, and a validation summary.
+A source-backed analytics project using the supplied Amazon India Sale Report export. The project includes a corrected cleaning workflow, Pandas EDA, DuckDB SQL reconciliation code, standalone SQL queries, aggregated outputs, a corrected interactive dashboard, an executive brief, and a validation summary.
 
 ## Current project status
 
-- Corrected source data preparation and date parsing have been independently rebuilt.
+- Corrected source data preparation and mixed-format date parsing are documented.
 - Aggregation logic has been cross-checked between Pandas and SQLite for KPIs, month, category, state, status, and B2B/B2C.
 - A DuckDB-vs-Pandas assertion workflow is included in the reproducible notebook. Direct DuckDB execution is still pending a full notebook run with the source CSV and dependencies installed.
-- Dashboard and report use corrected aggregate results. The public repository does not include the raw order-level source file.
+- Standalone DuckDB query examples are available in `sql/amazon_sales_analysis.sql`.
+- The dashboard, executive brief and report use corrected aggregate results. The public repository does not include the raw order-level source file.
 
 ## Key validated results
 
@@ -23,7 +24,7 @@ A source-backed analytics project using the supplied Amazon India Sale Report ex
 | Average order value | ₹650.26 |
 | Cancelled distinct orders | 17,166 (14.28%) |
 
-AOV is the mean of per-order recorded Amount totals. Missing Amount values were not imputed. Recorded Amount is not profit.
+AOV is the total non-missing recorded Amount divided by distinct Order IDs. Missing Amount values were not imputed. Recorded Amount is not profit.
 
 ## Key findings
 
@@ -31,11 +32,17 @@ AOV is the mean of per-order recorded Amount totals. Missing Amount values were 
 - B2C contributes approximately **99.25%** of recorded sales.
 - Amazon fulfilment contributes approximately **69.18%** of recorded sales.
 - Maharashtra is the highest recorded-sales state in the cleaned data.
-- March 2022 is a partial month (only 31 March rows); April month-on-month growth is not a like-for-like full-month comparison.
+- March 2022 is a partial month (only 31 March data); April month-on-month growth is not a like-for-like full-month comparison.
 
-## Dashboard
+## Dashboard and reports
 
-Open the [corrected interactive dashboard](index.html). Charts support hover details and responsive layout. Read the [corrected validation report](reports/Amazon_Sales_Validation_Summary.md) and [reproducible notebook](notebooks/Amazon_Sales_Validated_Analysis.ipynb).
+- [Corrected interactive dashboard](index.html)
+- [Executive brief and recommended follow-up analyses](reports/EXECUTIVE_BRIEF.md)
+- [Corrected validation report](reports/Amazon_Sales_Validation_Summary.md)
+- [Data dictionary](docs/DATA_DICTIONARY.md)
+- [Methodology](docs/METHODOLOGY.md)
+- [Standalone DuckDB SQL queries](sql/amazon_sales_analysis.sql)
+- [Reproducible notebook](notebooks/Amazon_Sales_Validated_Analysis.ipynb)
 
 ## Repository structure
 
@@ -44,19 +51,18 @@ Open the [corrected interactive dashboard](index.html). Charts support hover det
 ├── index.html
 ├── data/
 │   └── aggregates/
-│       ├── monthly_sales.csv
-│       ├── category_sales.csv
-│       └── top_states.csv
+├── docs/
+│   ├── DATA_DICTIONARY.md
+│   ├── DEPLOYMENT.md
+│   └── METHODOLOGY.md
 ├── notebooks/
 │   └── Amazon_Sales_Validated_Analysis.ipynb
 ├── reports/
-│   └── Amazon_Sales_Validation_Summary.md
-├── docs/
-│   ├── DATA_DICTIONARY.md
-│   ├── METHODOLOGY.md
-│   └── DEPLOYMENT.md
-├── .github/workflows/pages.yml
-└── requirements.txt
+│   ├── Amazon_Sales_Validation_Summary.md
+│   └── EXECUTIVE_BRIEF.md
+├── sql/
+│   └── amazon_sales_analysis.sql
+└── .github/workflows/pages.yml
 ```
 
 ## Reproduce the analysis
