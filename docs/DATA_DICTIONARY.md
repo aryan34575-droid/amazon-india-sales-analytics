@@ -5,7 +5,7 @@ This document describes the fields in the cleaned public-safe dataset. Original 
 | Field | Description |
 |---|---|
 | `Order ID` | Pseudonymous order key; retains grouping for distinct-order calculations |
-| `Date` | Parsed order date; may be missing when source date formats do not match the parser |
+| `Date` | Order date parsed from the source export using both `MM-DD-YY` and `MM-DD-YYYY` formats |
 | `Status` | Order status recorded in the source |
 | `Fulfilment` | Fulfilment channel |
 | `Sales Channel` | Sales channel |
@@ -22,14 +22,21 @@ This document describes the fields in the cleaned public-safe dataset. Original 
 | `B2B` | Business-to-business indicator |
 | `fulfilled-by` | Fulfilment provider field |
 
-## Known data-quality observations
+## Corrected data-quality observations
+
+The figures below reflect the corrected cleaning workflow, including explicit parsing of both source date formats.
 
 - Cleaned dataset size: **128,017 rows × 17 public fields**.
 - Distinct orders: **120,229**.
-- Missing Amount: **7,563 rows (5.91%)**.
-- Missing parsed Date: **54,744 rows (42.76%)** under the original strict parser.
+- Exact duplicate rows removed: **959**.
+- Missing Amount: **7,563 rows (5.91%)**; these values remain missing and are not imputed.
+- Missing parsed Date after mixed-format parsing: **0 rows**.
 - Missing `fulfilled-by`: **89,085 rows**.
 - The original export contained postal-code values; those values are intentionally excluded from the public-safe copy.
+
+### Date-parsing clarification
+
+An earlier preliminary pass using a single strict date format reported 54,744 missing dates (42.76%). This was a parsing limitation, not the final cleaned-data result. The corrected workflow parses both `MM-DD-YY` and `MM-DD-YYYY`; the validation summary records zero invalid dates after this correction.
 
 ## Fields not available
 
