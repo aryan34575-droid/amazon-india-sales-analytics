@@ -1,6 +1,6 @@
 # Amazon India Sales Analytics
 
-A source-backed analytics project using the supplied Amazon India Sale Report export. The project includes a corrected cleaning workflow, Pandas EDA, DuckDB SQL reconciliation code, aggregated outputs, and an interactive GitHub Pages dashboard.
+A source-backed analytics project using the supplied Amazon India Sale Report export. The project includes a corrected cleaning workflow, Pandas EDA, DuckDB SQL reconciliation code, aggregated outputs, a corrected interactive dashboard, and a validation summary.
 
 ## Current project status
 
@@ -35,7 +35,7 @@ AOV is the mean of per-order recorded Amount totals. Missing Amount values were 
 
 ## Dashboard
 
-Open the [interactive dashboard](index.html). Charts support hover details and responsive layout.
+Open the [corrected interactive dashboard](index.html). Charts support hover details and responsive layout. Read the [corrected validation report](reports/Amazon_Sales_Validation_Summary.md) and [reproducible notebook](notebooks/Amazon_Sales_Validated_Analysis.ipynb).
 
 ## Repository structure
 
